@@ -48,14 +48,18 @@ def train_epoch(summary, summary_writer, cfg, model, loss_fn, optimizer,
     for step in range(steps):
         data_tumor, target_tumor = next(dataiter_tumor)
         data_tumor = Variable(data_tumor.cuda(async=True))
+        # data_tumor = Variable(data_tumor)
         target_tumor = Variable(target_tumor.cuda(async=True))
+        # target_tumor = Variable(target_tumor)
 
         data_normal, target_normal = next(dataiter_normal)
         data_normal = Variable(data_normal.cuda(async=True))
+        # data_normal = Variable(data_normal)
         target_normal = Variable(target_normal.cuda(async=True))
+        # target_normal = Variable(target_normal)
 
-        idx_rand = Variable(
-            torch.randperm(batch_size * 2).cuda(async=True))
+        idx_rand = Variable(torch.randperm(batch_size * 2).cuda(async=True))
+        # idx_rand = Variable(torch.randperm(batch_size * 2))
 
         data = torch.cat([data_tumor, data_normal])[idx_rand]
         target = torch.cat([target_tumor, target_normal])[idx_rand]
